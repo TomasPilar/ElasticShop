@@ -32,10 +32,12 @@ final class ProductElasticsearchAggregationRepository implements ProductReposito
 			'type' => 'product',
 			'body' => [
 				'query' => [
-					'filtered' => [
-						'filter' => [
-							'term' => [
-								'category_id' => $categoryId
+					'bool' => [
+						'must' => [
+							[
+								'term' => [
+									'category_id' => $categoryId
+								]
 							]
 						]
 					]
@@ -77,12 +79,8 @@ final class ProductElasticsearchAggregationRepository implements ProductReposito
 
 		foreach ($allowedFilters as $filterName => $filterSettings) {
 			if (isset($filters[$filterName])) {
-				if ( ! isset($query['body']['query']['filtered']['filter']['and'])) {
-					$query['body']['query']['filtered']['filter'] = ['and' => [$query['body']['query']['filtered']['filter']]];
-				}
-
 				if ( ! isset($filterSettings['type'])) {
-					$query['body']['query']['filtered']['filter']['and'][] = [
+					$query['body']['query']['bool']['must'][] = [
 						'term' => [
 							$filterSettings['field'] => $filters[$filterName]
 						]
@@ -97,7 +95,7 @@ final class ProductElasticsearchAggregationRepository implements ProductReposito
 						$max = null;
 					}
 
-					$query['body']['query']['filtered']['filter']['and'][] = [
+					$query['body']['query']['bool']['must'][] = [
 						'range' => [
 							$filterSettings['field'] => [
 								'gte' => $min,
