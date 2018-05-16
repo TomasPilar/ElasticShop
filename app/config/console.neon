@@ -1,0 +1,9 @@
+extensions:
+	console: Portiny\Console\Adapter\Nette\DI\ConsoleExtension
+
+console:
+	url: http://elasticsearch-advanced.local/
+
+services:
+	- App\Command\CreateIndexCommand
+	- App\Command\FillIndexCommand

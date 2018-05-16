@@ -1,0 +1,3 @@
+services:
+	- App\Model\CategoryRepository
+	- App\Model\ProductRepository

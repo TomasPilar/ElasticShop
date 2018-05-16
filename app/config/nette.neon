@@ -1,0 +1,5 @@
+application:
+	scanDirs: FALSE
+	errorPresenter: Error
+	mapping:
+		*: App\*Module\Presenter\*Presenter

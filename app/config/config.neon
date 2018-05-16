@@ -1,0 +1,9 @@
+includes:
+	- console.neon
+	- model.neon
+	- nette.neon
+	- php.neon
+
+services:
+	router: App\Router\RouterFactory::createRouter
+	- App\Service\ElasticsearchClientFactory
